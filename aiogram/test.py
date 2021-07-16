@@ -1,13 +1,13 @@
 import asyncio
 from aiogram import Bot, Dispatcher, types
-from tokens import *
+from config import *
 
-BOT_TOKEN = bot_token
+BOT_TOKEN = API_TOKEN
 
 
 async def start_handler(event: types.Message):
     await event.answer(
-        f"Hello, {event.from_user.get_mention(as_html=True)} 👋!",
+        f"Привет, {event.from_user.get_mention(as_html=True)} 👋!",
         parse_mode=types.ParseMode.HTML,
     )
 
