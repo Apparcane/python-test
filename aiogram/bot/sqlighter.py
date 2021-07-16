@@ -20,15 +20,15 @@ class SQLighter:
                 'SELECT * FROM `subscriptions` WHERE `user_id` = ?', (user_id,)).fetchall()
             return bool(len(result))
 
-    def add_subscriber(self, user_id, status=True):
+    def add_subscriber(self, username, user_id, status=True):
         """Добавляем нового подписчика"""
         with self.connection:
-            return self.cursor.execute("INSERT INTO `subscriptions` (`user_id`, `status`) VALUES(?,?)", (user_id, status))
+            return self.cursor.execute("INSERT INTO `subscriptions` (`username`, `user_id`, `status`) VALUES(?,?,?)", (username, user_id, status))
 
-    def update_subscription(self, user_id, status):
+    def update_subscription(self, username, user_id, status):
         """Обновляем статус подписки пользователя"""
         with self.connection:
-            return self.cursor.execute("UPDATE `subscriptions` SET `status` = ? WHERE `user_id` = ?", (status, user_id))
+            return self.cursor.execute("UPDATE `subscriptions` SET `name` = ?, `status` = ? WHERE `user_id` = ?", (username, status, user_id))
 
     def close(self):
         """Закрываем соединение с БД"""
