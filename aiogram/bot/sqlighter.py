@@ -11,7 +11,7 @@ class SQLighter:
     def get_subscriptions(self, status=True):
         """Получаем всех активных подписчиков бота"""
         with self.connection:
-            return self.cursor.execute("SELECT * FROM `subscriptions` WHERE `status` = ?", (status,)).fetchall()
+            return self.cursor.execute("SELECT `user_id` FROM `subscriptions` WHERE `status` = ?", (status,)).fetchall()
 
     def subscriber_exists(self, user_id):
         """Проверяем, есть ли уже юзер в базе"""
@@ -28,7 +28,7 @@ class SQLighter:
     def update_subscription(self, username, user_id, status):
         """Обновляем статус подписки пользователя"""
         with self.connection:
-            return self.cursor.execute("UPDATE `subscriptions` SET `name` = ?, `status` = ? WHERE `user_id` = ?", (username, status, user_id))
+            return self.cursor.execute("UPDATE `subscriptions` SET `name` = ? `status` = ? WHERE `user_id` = ?", (username, status, user_id))
 
     def close(self):
         """Закрываем соединение с БД"""
